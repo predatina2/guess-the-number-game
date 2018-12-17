@@ -1,18 +1,21 @@
 package example.hadlak;
 
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+@Component
 public class GameImpl implements Game {
 
     // == constants ==
     private static final Logger log = LoggerFactory.getLogger(GameImpl.class);
 
     // == fields ==
+    @Autowired
     private NumberGenerator numberGenerator;
     private int guessCount = 10;
     private int number;
@@ -21,6 +24,11 @@ public class GameImpl implements Game {
     private int biggest;
     private int remainingGuesses;
     private boolean validNumberRange = true;
+
+//    // == constructors ==
+//    public GameImpl(NumberGenerator numberGenerator) {
+//        this.numberGenerator = numberGenerator;
+//    }
 
     // == init ==
     @PostConstruct
@@ -39,10 +47,10 @@ public class GameImpl implements Game {
         log.info("in Game preDestroy");
     }
 
-    // == public methods ==
-    public void setNumberGenerator(NumberGenerator numberGenerator){
-        this.numberGenerator = numberGenerator;
-    }
+//    // == public methods ==
+//    public void setNumberGenerator(NumberGenerator numberGenerator){
+//        this.numberGenerator = numberGenerator;
+//    }
 
     @Override
     public int getNumber() {
