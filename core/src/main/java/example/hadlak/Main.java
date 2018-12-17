@@ -3,6 +3,7 @@ package example.hadlak;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
@@ -16,7 +17,7 @@ public class Main {
 
        // create context (container)
         ConfigurableApplicationContext context
-                = new ClassPathXmlApplicationContext(CONFIG_LOCATION);
+                = new AnnotationConfigApplicationContext(AppConfig.class);
 
         // get number generator bean from context (container)
         NumberGenerator numberGenerator
@@ -30,6 +31,21 @@ public class Main {
 
         // get game bean from context (container)
         Game game = context.getBean(Game.class);
+
+        // get message generator bean from context (container)
+        MessageGenerator messageGenerator = context.getBean(MessageGenerator.class);
+
+        // call method getMainMessage()
+        String mainMessage = messageGenerator.getMainMessage();
+
+        // log main message
+        log.info("Main message = {}", mainMessage);
+
+        // call method getResult Message()
+        String resultMessage = messageGenerator.getResultMessage();
+
+        // log result message
+        log.info("Result message = {}", resultMessage);
 
         // close context (container)
         context.close();
